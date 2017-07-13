@@ -88,6 +88,8 @@ router.put('/:userId',
     user.save()
     .catch( (err) => res.status(500).send(err) )
     .then( (user) => {
+      req.session.userID = user.id;
+      req.session.username = user.username;
       res.setHeader('Content-Type','application/json');
       res.status(200).json({ user: user });
     })
@@ -118,6 +120,21 @@ router.post('/login', (req, res) => {
   })
 });
 
+router.get('/get/me', (req, res) => {
+  console.log("Session: ", req.session);
+  if(req.session.userID){
+    res.status(200).json(req.session);
+  }
+  else{
+    res.status(404).send("No saved session");
+  }
+});
+
+router.post('/logout', (req, res) => {
+  req.session.destroy( () => {
+    res.redirect("/");
+  })
+})
 
 module.exports = router;
 

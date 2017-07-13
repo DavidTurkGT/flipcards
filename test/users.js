@@ -201,27 +201,6 @@ describe("A user", () => {
       });
   });
 
-  // it("stores a logged in user in the session", (done) => {
-  //   request(app)
-  //     .get('/users/me')
-  //     .expect(200)
-  //     .expect('Content-Type','application/json; charset=utf-8')
-  //     .expect( (res) => {
-  //       assert(res, 'No response sent');
-  //       assert(res.body, 'No response body sent');
-  //       assert(res.body.session, 'No session sent with response');
-  //       let session = res.body.session;
-  //       assert(session.userID, 'Session has no userID');
-  //       assert.equal(session.userID, User.id, 'Incorrect session userID. Should be 1. Received: ' + session.userID);
-  //       assert(session.username, 'Session has no username');
-  //       assert.equal(session.username,User.username, 'Incorrect session username. Should be test. Received: ' + session.username);
-  //     })
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     })
-  // });
-
   it("will not log in with a bad username", (done) => {
     request(app)
       .post('/users/login')
@@ -243,24 +222,5 @@ describe("A user", () => {
         else done();
       })
   });
-
-  // it("can log out and show no user on the session", (done) => {
-  //   request(app)
-  //     .get('/users/'+User.id+'/logout')
-  //     .expect(200)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else{
-  //         request(app)
-  //         .get('/users/me')
-  //         .expect(404)
-  //         .end( (err, res) => {
-  //           if(err) done(err);
-  //           else done();
-  //         });
-  //       }
-  //     });
-  // });
-
 
 });

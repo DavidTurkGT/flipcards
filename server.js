@@ -4,6 +4,7 @@ const validator = require('express-validator');
 const path = require('path');
 const morgan = require('morgan');
 const router = require('./routes');
+const session = require('express-session');
 
 const app = express();
 
@@ -12,6 +13,12 @@ app.set(express.static, path.join(__dirname,"public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(validator());
+
+app.use(session({
+  secret: 'cornbread',
+  resave: false,
+  saveUnitialized: false,
+}));
 
 // app.use(morgan('dev'));
 
