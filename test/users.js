@@ -181,16 +181,25 @@ describe("A user", () => {
       })
   });
 
-  // it("can log in successfully", (done) => {
-  //   request(app)
-  //     .post('/users/'+User.id+'/login')
-  //     .send({ username: User.username, password: "password" })
-  //     .expect(200)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     });
-  // });
+  it("can log in successfully", (done) => {
+    request(app)
+      .post('/users')
+      .send({ username: "david", password: "cornbread" })
+      .expect(200)
+      .end( (err, res) => {
+        if(err) done(err);
+        else{
+          request(app)
+            .post('/users/login')
+            .send({ username: "david", password: "cornbread" })
+            .expect(200)
+            .end( (err, res) => {
+              if(err) done(err);
+              else done();
+            })
+        }
+      });
+  });
 
   // it("stores a logged in user in the session", (done) => {
   //   request(app)
@@ -213,27 +222,27 @@ describe("A user", () => {
   //     })
   // });
 
-  // it("will not log in with a bad username", (done) => {
-  //   request(app)
-  //     .post('/users/'+User.id+'/login')
-  //     .send({ username: "noUserNameHere", password: "123"})
-  //     .expect(401)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     });
-  // });
+  it("will not log in with a bad username", (done) => {
+    request(app)
+      .post('/users/login')
+      .send({ username: "noUserNameHere", password: "123"})
+      .expect(401)
+      .end( (err, res) => {
+        if(err) done(err);
+        else done();
+      });
+  });
 
-  // it("will not log in if the password is wrong", (done) => {
-  //   request(app)
-  //     .post('/users/'+User.id+'/login')
-  //     .send({ username: User.username, password: "notMyPW" })
-  //     .expect(401)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     })
-  // });
+  it("will not log in if the password is wrong", (done) => {
+    request(app)
+      .post('/users/login')
+      .send({ username: User.username, password: "notMyPW" })
+      .expect(401)
+      .end( (err, res) => {
+        if(err) done(err);
+        else done();
+      })
+  });
 
   // it("can log out and show no user on the session", (done) => {
   //   request(app)

@@ -94,6 +94,30 @@ router.put('/:userId',
   }
 );
 
+router.post('/login', (req, res) => {
+  //Find the user
+  Models.User.find({
+    where: {
+      username: req.body.username
+    }
+  })
+  .catch( (err) => res.status(500).send(err) )
+  .then( (user) => {
+    if(!user){
+      res.status(401).send("Invalid username/password");
+    }
+    else{
+      //Valid username; check password
+      if( isPasswordCorrect(user, req.body.password) ){
+        res.status(200).send("Log in!");
+      }
+      else{
+        res.status(401).send("Invalid username/password");
+      }
+    }
+  })
+});
+
 
 module.exports = router;
 
@@ -121,13 +145,13 @@ let config2 = {
   digest: 'sha512'
 };
 
-function isPasswordCorrect(passwordAttempt) {
-  let savedHash = 'saved-hash-in-db';
-  let savedSalt = 'saved-salt-in-db';
-  let savedIterations = 'saved-iterations-in-db';
+function isPasswordCorrect(user, passwordAttempt) {
+  let savedHash = user.passwordHash;
+  let savedSalt = user.passwordSalt;
+  let savedIterations = user.passwordIterations;
 
   let hash = crypto.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations, config2.keylen, config2.digest);
 
-  var hashPassword = hash.toString('base64');
+  var hashedPassword = hash.toString('base64');
   return savedHash === hashedPassword;
 }
