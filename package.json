@@ -1,0 +1,35 @@
+{
+  "name": "flipcards",
+  "version": "1.0.0",
+  "description": "Flipcard quiz app",
+  "main": "server.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha",
+    "start": "mocha test && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidTurkGT/flipcards.git"
+  },
+  "keywords": [
+    "flipcards",
+    "quiz"
+  ],
+  "author": "David Turk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidTurkGT/flipcards/issues"
+  },
+  "homepage": "https://github.com/DavidTurkGT/flipcards#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "crypto": "0.0.3",
+    "express": "^4.15.3",
+    "express-validator": "^3.2.1",
+    "morgan": "^1.8.2",
+    "path": "^0.12.7",
+    "pg": "^6.4.0",
+    "sequelize": "^4.3.1",
+    "supertest": "^3.0.0"
+  }
+}

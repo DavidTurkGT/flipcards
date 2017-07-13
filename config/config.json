@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "turk",
+    "password": null,
+    "database": "flipcard_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "test": {
+    "username": "turk",
+    "password": null,
+    "database": "flipcard_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "username": "turk",
+    "password": null,
+    "database": "flipcard_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  }
+}
