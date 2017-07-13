@@ -253,22 +253,5 @@ describe("A user", () => {
   //     });
   // });
 
-  // it("can be deleted", (done) => {
-  //   request(app)
-  //     .delete('/users/'+User.id)
-  //     .expect(200)
-  //     .end( (err, res) => {
-  //       if(err) done(err)
-  //       else{
-  //         request(app)
-  //         .get('/users/'+User.id)
-  //         .expect(404)
-  //         .end( (err, res) => {
-  //           if(err) done(err);
-  //           else done();
-  //         })
-  //       }
-  //     })
-  // });
 
 });

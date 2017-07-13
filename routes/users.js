@@ -53,7 +53,7 @@ function findUser (req, res, next) {
       next();
     }
   })
-}
+};
 
 router.post('/',
   validateNewUser({username: true,password: true}),
@@ -94,12 +94,6 @@ router.put('/:userId',
   }
 );
 
-router.delete('/:userId',
-  findUser,
-  (req, res) => {
-    //TODO: Can't delete users until you can delete decks
-  }
-);
 
 module.exports = router;
 
