@@ -29,15 +29,23 @@ function validateRequest (req, res, next) {
 }
 
 function findCard (req, res, next) {
-  Models.Flipcard.find({ where: { id: req.params.cardId } })
+  Models.Flipcard.find({
+    where: { id: req.params.cardId }
+  })
   .catch( (err) => res.status(500).send(err) )
   .then( (card) => {
     if(!card){
       res.status(404).send("No card found");
     }
     else{
-      req.card = card;
-      next();
+      Models.Deck.find({ where: {id: card.deckID } })
+      .catch( (err) => res.status(500).send(err) )
+      .then( (deck) => {
+        card = card.dataValues;
+        card.deck = deck.dataValues;
+        req.card = card;
+        next();
+      })
     }
   })
 }
@@ -55,24 +63,49 @@ router.post('/in/:deckId', validateRequest, (req, res) => {
   })
 });
 
-router.get('/:cardId', (req, res) => {
-  Models.Flipcard.find()
-  .catch( (err) => {
-    console.log("Error: ",err);
-    res.status(500).send(err)
-  })
-  .then( (data) => {
-    console.log("Found something!");
-    res.send("Success!")
-  })
+router.get('/:cardId', findCard, (req, res) => {
+  res.status(200).json({card: req.card});
 });
 
 router.put('/:cardId', (req, res) => {
-
+  Models.Flipcard.find({ where: { id: req.params.cardId } })
+  .catch( (err) => res.status(500).send(err) )
+  .then( (card) => {
+    if(!card){
+      res.status(404).send("No card found");
+    }
+    else{
+      card.question = req.body.question || card.question;
+      card.answer = req.body.answer || card.answer;
+      card.save()
+      .catch( (err) => res.status(500).send(err) )
+      .then( (card) => {
+        res.status(200).json({ card: card });
+      });
+    }
+  });
 });
 
 router.delete('/:cardId', (req, res) => {
-
+  // Models.Flipcard.destroy({ where: { id: req.params.cardId} })
+  // .catch( (err) => res.status(500).send(err) )
+  // .then( () => {
+  //   res.status(200).send("Card destroyed");
+  // });
+  Models.Flipcard.find({ where: { id: req.params.cardId} })
+  .catch( (err) => res.status(500).send(err) )
+  .then( (card) => {
+    if(!card){
+      res.status(404).send("No card found");
+    }
+    else{
+      card.destroy()
+      .catch( (err) => res.status(500).send(err) )
+      .then( () => {
+        res.status(200).json({card: card});
+      })
+    }
+  })
 });
 
 module.exports = router;

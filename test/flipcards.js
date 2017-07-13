@@ -123,13 +123,11 @@ describe("A flipcard", () => {
   });
 
   it("can be retrieved from the database", (done) => {
-    console.log("Finding card with ID: ", Card.id);
     request(app)
       .get('/cards/'+Card.id)
       .expect(200)
       .expect('Content-Type','application/json; charset=utf-8')
       .expect( (res) => {
-        console.log("Received a response!");
         assert(res, 'No response received');
         assert(res.body, 'No response body received');
         assert(res.body.card, 'No card received');
@@ -144,96 +142,96 @@ describe("A flipcard", () => {
       });
   });
 
-  // it("is associated with a deck", (done) => {
-  //   request(app)
-  //   .get('/cards/'+Card.id)
-  //   .expect(200)
-  //   .expect('Content-Type','applicaton/json; charset=utf-8')
-  //   .expect( (res) => {
-  //     assert(res, 'No response received');
-  //     assert(res.body, 'No response body received');
-  //     assert(res.body.card, 'No card received');
-  //     let retrievedCard = res.body.card;
-  //     assert(retrievedCard.deck, 'No deck associated with card');
-  //     let retrievedDeck = retrievedCard.deck;
-  //     assert.equal(retrievedDeck.id,Deck.id,"ID's do not match. Received: "+retrievedDeck.id+". Expected: "+Deck.id);
-  //   })
-  //   .end( (err, res) => {
-  //     if(err) done(err);
-  //     else done();
-  //   });
-  // });
+  it("is associated with a deck", (done) => {
+    request(app)
+    .get('/cards/'+Card.id)
+    .expect(200)
+    .expect('Content-Type','application/json; charset=utf-8')
+    .expect( (res) => {
+      assert(res, 'No response received');
+      assert(res.body, 'No response body received');
+      assert(res.body.card, 'No card received');
+      let retrievedCard = res.body.card;
+      assert(retrievedCard.deck, 'No deck associated with card');
+      let retrievedDeck = retrievedCard.deck;
+      assert.equal(retrievedDeck.id,Deck.id,"ID's do not match. Received: "+retrievedDeck.id+". Expected: "+Deck.id);
+    })
+    .end( (err, res) => {
+      if(err) done(err);
+      else done();
+    });
+  });
 
-  // it("will throw an error if no flipcard is found when retrieved", (done) => {
-  //   request(app)
-  //     .get('/cards/1989')
-  //     .expect(404)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     })
-  // });
+  it("will throw an error if no flipcard is found when retrieved", (done) => {
+    request(app)
+      .get('/cards/1989')
+      .expect(404)
+      .end( (err, res) => {
+        if(err) done(err);
+        else done();
+      })
+  });
 
-  // it("can be updated in the database", (done) => {
-  //   request(app)
-  //     .put('/cards/'+Card.id)
-  //     .send({
-  //       question: "newQuestion"
-  //     })
-  //     .expect(200)
-  //     .expect('Content-Type','application/json; charset=utf-8')
-  //     .expect( (res) => {
-  //       assert(res,'No response received');
-  //       assert(res.body, 'No response body received');
-  //       assert(res.body.card, 'No card received');
-  //       let retrievedCard = res.body.card;
-  //       assert(retrievedCard.question,'Retrieved card has no question');
-  //       assert.equal(retrievedCard.question,"newQuestion",'Updated questions do not match. Received: '+retrievedCard.question+". Expected: newQuestion");
-  //       assert(retrievedCard.answer, 'Retrieved card has no answer');
-  //       assert.equal(retrievedCard.answer,"No","Updated card has wrong answer. Received: "+retrievedCard.answer+". Expected: No");
-  //     })
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     })
-  // });
+  it("can be updated in the database", (done) => {
+    request(app)
+      .put('/cards/'+Card.id)
+      .send({
+        question: "newQuestion"
+      })
+      .expect(200)
+      .expect('Content-Type','application/json; charset=utf-8')
+      .expect( (res) => {
+        assert(res,'No response received');
+        assert(res.body, 'No response body received');
+        assert(res.body.card, 'No card received');
+        let retrievedCard = res.body.card;
+        assert(retrievedCard.question,'Retrieved card has no question');
+        assert.equal(retrievedCard.question,"newQuestion",'Updated questions do not match. Received: '+retrievedCard.question+". Expected: newQuestion");
+        assert(retrievedCard.answer, 'Retrieved card has no answer');
+        assert.equal(retrievedCard.answer,"No","Updated card has wrong answer. Received: "+retrievedCard.answer+". Expected: No");
+      })
+      .end( (err, res) => {
+        if(err) done(err);
+        else done();
+      })
+  });
 
-  // it("will throw an error if no card is found when updating", (done) => {
-  //   request(app)
-  //     .put('/cards/1989')
-  //     .expect(404)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     })
-  // });
+  it("will throw an error if no card is found when updating", (done) => {
+    request(app)
+      .put('/cards/1989')
+      .expect(404)
+      .end( (err, res) => {
+        if(err) done(err);
+        else done();
+      })
+  });
 
-  // it("can be deleted from the database", (done) => {
-  //   request(app)
-  //     .delete('/cards/'+Card.id)
-  //     .expect(200)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else{
-  //         request(app)
-  //           .get('/cards/'+Card.id)
-  //           .expect(404)
-  //           .end( (err, res) => {
-  //             if(err) done(err);
-  //             else done();
-  //           })
-  //       }
-  //     })
-  // });
+  it("can be deleted from the database", (done) => {
+    request(app)
+      .delete('/cards/'+Card.id)
+      .expect(200)
+      .end( (err, res) => {
+        if(err) done(err);
+        else{
+          request(app)
+            .get('/cards/'+Card.id)
+            .expect(404)
+            .end( (err, res) => {
+              if(err) done(err);
+              else done();
+            })
+        }
+      })
+  });
 
-  // it("will throw an error if no card is found when deleting", (done) => {
-  //   request(app)
-  //     .delete('/cards/1989')
-  //     .expect(404)
-  //     .end( (err, res) => {
-  //       if(err) done(err);
-  //       else done();
-  //     })
-  // });
+  it("will throw an error if no card is found when deleting", (done) => {
+    request(app)
+      .delete('/cards/1989')
+      .expect(404)
+      .end( (err, res) => {
+        if(err) done(err);
+        else done();
+      })
+  });
 
 });
