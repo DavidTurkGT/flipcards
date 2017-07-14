@@ -9,7 +9,7 @@ router.use("/deck", deckRouter);
 router.use('/cards', cardRouter);
 
 router.get("/", (req, res) => {
-  res.send("You made it!");
+  res.render("index");
 });
 
 module.exports = router;
