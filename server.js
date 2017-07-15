@@ -9,7 +9,7 @@ const mustacheExpress = require('mustache-express');
 
 const app = express();
 
-app.set(express.static( path.join(__dirname,"public" )));
+app.use(express.static( path.join(__dirname,"/public" )));
 
 app.engine('mustache',mustacheExpress());
 app.set('views','./views');

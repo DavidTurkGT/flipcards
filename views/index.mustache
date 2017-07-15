@@ -5,6 +5,40 @@
     <title>Quizr: Home</title>
   </head>
   <body>
-    <h1>This is the index page!</h1>
+    <nav>
+      <a href="/">Home</a>
+    </nav>
+    <div class="Heading">
+      <h1>Quizr</h1>
+      <h3>The Flashcard Study App!</h3>
+    </div>
+    <div class="container">
+      <div class="messages">
+
+      </div>
+      <div class="Login">
+        <form action="#">
+          <fieldset>
+            <legend>Log In</legend>
+            <input type="text" name="username_login" value="" placeholder="Username">
+            <input type="password" name="password_login" value="" placeholder="Password">
+            <button type="button" onclick="login()">Log In</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="Signup">
+        <form action="#">
+          <fieldset>
+            <legend>Sign Up</legend>
+            <input type="text" name="username_sign_up" value="" placeholder="Username">
+            <input type="password" name="password_sign_up" value="" placeholder="Password">
+            <input type="password" name="confirm_password" value="" placeholder="Confirm Password">
+            <button type="button" onclick="signup()">Sign Up</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/index.js" charset="utf-8"></script>
   </body>
 </html>

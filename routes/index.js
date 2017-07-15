@@ -12,4 +12,12 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
+router.get("/home", (req, res) => {
+  res.render("home");
+});
+
+router.get("/quiz", (req, res) => {
+  res.render("quiz");
+})
+
 module.exports = router;

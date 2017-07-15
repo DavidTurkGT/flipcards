@@ -31,7 +31,7 @@ function validateNewUser (options) {
       .then( (user) => {
         if(user){
           res.setHeader('Content-Type','application/json');
-          res.status(400).json({ errors: "Username already taken" });
+          res.status(400).json({ errors: ["Username already taken"] });
         }
         else{
           next();
@@ -58,6 +58,7 @@ function findUser (req, res, next) {
 router.post('/',
   validateNewUser({username: true,password: true}),
   (req, res) => {
+    console.log("Creating a new user!");
     let newUser = {
       username: req.body.username,
     };
