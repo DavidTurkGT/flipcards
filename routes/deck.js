@@ -73,6 +73,18 @@ function deleteCards (req, res, next) {
   });
 }
 
+router.get("/", (req, res) => {
+  Models.Deck.findAll({})
+  .catch( (err) => res.status(500).send("Internal Server Error"))
+  .then( (decks) => {
+    deckList = [];
+    decks.forEach( (deck) => {
+      deckList.push(deck.dataValues);
+    });
+    res.status(200).json({decks: deckList});
+  })
+})
+
 router.post('/for/:userId', validateRequest, (req, res) => {
   //Make sure the user is a valid user
   Models.User.find({ where: {id: req.params.userId} })

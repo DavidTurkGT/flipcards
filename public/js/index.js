@@ -40,10 +40,13 @@ function login() {
 function signup() {
   let usernameInput = document.querySelector("input[name='username_sign_up']");
   let username = usernameInput.value;
+  usernameInput.value = "";
   let passwordInput = document.querySelector("input[name='password_sign_up']");
   let password = passwordInput.value;
+  passwordInput = "";
   let confirmInput = document.querySelector("input[name='confirm_password']");
   let confirmPassword = confirmInput.value;
+  confirmInput = "";
   if( verifySignup(username, password, confirmPassword) ){
     let payload = {
       username: username,
